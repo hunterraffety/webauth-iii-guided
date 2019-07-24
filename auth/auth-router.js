@@ -43,13 +43,14 @@ router.post('/login', (req, res) => {
 function generateToken(user) {
   const jwtPayload = {
     subject: user.id,
-    username: user.username
+    username: user.username,
+    department: user.department
   };
-  const jwtSecret = process.env.JWT_SECRET || 'keep it secret';
+
   const jwtOptions = {
     expiresIn: '1d'
   };
-  return jwt.sign(jwtPayload, jwtSecret, jwtOptions);
+  return jwt.sign(jwtPayload, secrets.jwtSecret, jwtOptions);
 }
 
 module.exports = router;
